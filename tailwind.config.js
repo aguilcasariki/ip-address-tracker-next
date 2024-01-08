@@ -9,6 +9,9 @@ export const content = [
 ];
 export const theme = {
   extend: {
+    boxShadow: {
+      focusShadow: "0 0 5px 2px rgba(255,255,255,0.5)",
+    },
     backgroundImage: {
       "hero-pattern": "url('/pattern-bg-desktop.png')",
       "hero-pattern-mobile": "url('/pattern-bg-mobile.png')",
@@ -17,7 +20,7 @@ export const theme = {
   colors: {
     white: "#ffffff",
     "very-dark-gray": "hsl(0, 0%, 17%)",
-    "dark-gray": "hsl(0, 0%, 59%)",
+    "dark-gray": "#545769",
   },
 };
 export const plugins = [];

@@ -3,7 +3,7 @@ import Downshift from "downshift";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
-const ipAddresses = ["192.168.1.1", "192.168.1.2", "10.0.0.1", "10.0.0.2"];
+const ipAddresses = ["192.168.1.1", "192.168.1.2", "10.0.0.1"];
 
 const IpInput = ({ handleSubmit, handleChange }) => {
   const [focused, setFocused] = useState(false);
@@ -38,7 +38,7 @@ const IpInput = ({ handleSubmit, handleChange }) => {
                   {...getInputProps()}
                   type="text"
                   placeholder="Search for any IP address or domain"
-                  className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none"
+                  className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
                   name="ip_address"
                   pattern="^(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)\.)+(?:[a-zA-Z]{2,6}\.?))|(?:(?:(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,7}:)|(?:(?:[A-Fa-f0-9]{1,4}:){1,6}:[A-Fa-f0-9]{1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,5}(?::[A-Fa-f0-9]{1,4}){1,2})|(?:(?:[A-Fa-f0-9]{1,4}:){1,4}(?::[A-Fa-f0-9]{1,4}){1,3})|(?:(?:[A-Fa-f0-9]{1,4}:){1,3}(?::[A-Fa-f0-9]{1,4}){1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,2}(?::[A-Fa-f0-9]{1,4}){1,5})|(?:(?:[A-Fa-f0-9]{1,4}:)(?::[A-Fa-f0-9]{1,4}){1,6})|(?::(?::[A-Fa-f0-9]{1,4}){1,7}|:)))$"
                   required
@@ -58,12 +58,12 @@ const IpInput = ({ handleSubmit, handleChange }) => {
                         <li
                           {...getItemProps({ item, index })}
                           key={item}
-                          className="autocomplete_item py-2 px-3 cursor-pointer"
+                          className="autocomplete_item py-1 px-2 cursor-pointer "
                           style={{
                             backgroundColor:
-                              highlightedIndex === index
-                                ? "lightgray"
-                                : "white",
+                              highlightedIndex === index ? "#545769" : "white",
+                            color:
+                              highlightedIndex === index ? "white" : "black",
                             fontWeight:
                               selectedItem === item ? "bold" : "normal",
                           }}
@@ -78,7 +78,7 @@ const IpInput = ({ handleSubmit, handleChange }) => {
 
           <button
             type="submit"
-            className="search_btn bg-very-dark-gray p-3.5 rounded-lg rounded-s-none hover:bg-dark-gray"
+            className="search_btn bg-very-dark-gray p-3.5 rounded-lg rounded-s-none hover:bg-dark-gray focus:bg-dark-gray focus:shadow-focusShadow focus-visible:shadow-focusShadow"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
               <path
