@@ -12,7 +12,7 @@ function CardColumn({ columnData }) {
           <h2 className="card_column-title text-[0.625rem] text-dark-gray">
             {data.title}
           </h2>
-          <p className="card_column-info mt-1 md:text-lg md:whitespace-pre-wrap">
+          <p className="card_column-info mt-1 md:text-lg text-center">
             {data.info}
           </p>
         </div>

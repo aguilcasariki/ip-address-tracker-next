@@ -7,16 +7,17 @@ import { useCallback, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
 import useTimezoneConvert from "./hooks/useTimezoneConvert";
 const loadingMsg = "Loading...";
-const defaultData = {
-  ip: "",
-  location: {
-    country: "",
-    timezone: "",
-    lat: 0,
-    lng: 0,
-  },
-  isp: "",
+const initialData = {
+  query: "185.211.213.148",
+  city: "Ambo Village",
+  region: "Québec",
+  zip: "K2C",
+  isp: "Jaloo",
+  timezone: "Pacific/Tarawa",
+  lat: 1.35317,
+  lon: 173.04259,
 };
+
 const App = () => {
   // Define the initial state of inputValue and ip as empty strings.
   const [inputValue, setInputValue] = useState("");
@@ -24,7 +25,8 @@ const App = () => {
 
   // Use the useQuery hook to fetch the IP geolocation data.
   const { isLoading, data, isError, refetch } = useQuery({
-    queryKey: ["geoData", ip], // Unique key to identify the query.
+    queryKey: ["geoData", ip],
+    initialData: initialData, // Unique key to identify the query.
     queryFn: () => fetchIpGeoData(ip), // Function that returns the query promise.
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus.
   });
