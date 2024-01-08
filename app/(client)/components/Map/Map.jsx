@@ -5,7 +5,7 @@ import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import PropTypes from "prop-types";
 const markerIcon = new Icon({
-  iconUrl: "../../../images/icon-location.svg",
+  iconUrl: "/icon-location.svg",
   iconSize: [null, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],

@@ -7,7 +7,16 @@ import { useCallback, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
 import useTimezoneConvert from "./hooks/useTimezoneConvert";
 const loadingMsg = "Loading...";
-
+const defaultData = {
+  ip: "",
+  location: {
+    country: "",
+    timezone: "",
+    lat: 0,
+    lng: 0,
+  },
+  isp: "",
+};
 const App = () => {
   // Define the initial state of inputValue and ip as empty strings.
   const [inputValue, setInputValue] = useState("");
