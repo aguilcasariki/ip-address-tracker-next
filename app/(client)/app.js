@@ -1,5 +1,4 @@
 "use client";
-
 import IpInput from "./components/IpInput/IpInput";
 import Map from "./components/Map/Map";
 import fetchIpGeoData from "./api/fetchIpGeoData";
