@@ -1,11 +1,12 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+
 import IpInput from "./components/IpInput/IpInput";
 import Map from "./components/Map/Map";
 import fetchIpGeoData from "./api/fetchIpGeoData";
 import { useCallback, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
 import useTimezoneConvert from "./hooks/useTimezoneConvert";
+import { useQuery } from "@tanstack/react-query";
 const loadingMsg = "Loading...";
 const initialData = {
   query: "185.211.213.148",
