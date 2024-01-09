@@ -1,6 +1,11 @@
 "use client";
 import IpInput from "./components/IpInput/IpInput";
-import Map from "./components/Map/Map";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("./components/Map/Map.jsx"), {
+  ssr: false,
+});
+
 import fetchIpGeoData from "./api/fetchIpGeoData";
 import { useCallback, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
