@@ -1,6 +1,9 @@
 "use client";
+import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "react-query";
-import App from "./app";
+const App = dynamic(() => import("./app"), {
+  ssr: false,
+});
 // Create a client
 const queryClient = new QueryClient();
 
