@@ -1,54 +1,17 @@
 import mongoose from "mongoose";
 
 const GeoSchema = new mongoose.Schema({
-  ip: {
-    type: String,
-    required: true,
-  },
+  ip: String,
   location: {
-    country: {
-      type: String,
-      required: true,
-    },
-    timezone: {
-      type: String,
-      required: true,
-    },
-    timezone: {
-      type: String,
-      required: true,
-    },
+    region: String,
+    city: String,
+    lat: Number,
+    lng: Number,
+    postalCode: String,
+    timezone: String,
   },
-  domains: {
-    type: String,
-    required: true,
-  },
-  as: {
-    asn: {
-      type: Number,
-      required: true,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-    route: {
-      type: String,
-      required: true,
-    },
-    domain: {
-      type: String,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-  },
-  isp: {
-    type: String,
-    required: true,
-  },
+  domain: String,
+  isp: String,
 });
 
 try {

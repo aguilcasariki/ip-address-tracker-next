@@ -31,6 +31,8 @@ const App = () => {
     refetchOnWindowFocus: false, // Disable automatic refetch on window focus.
   });
 
+  /* console.log("LA DATA EN EL FRONT ES: ", data); */
+
   // Define the callbacks to handle form change and submission.
   const handleChange = useCallback((event) => {
     setInputValue(event.target.value);
@@ -38,7 +40,7 @@ const App = () => {
 
   const handleSubmit = useCallback(
     (event) => {
-      event.preventDefault();
+      console.log("SE HIZO EL SUBMIT"), event.preventDefault();
       setIp(inputValue.trim());
       refetch(); // Re-fetch the IP geolocation data.
     },

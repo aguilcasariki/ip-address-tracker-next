@@ -4,6 +4,18 @@ import Geo from "../../../(models)/GeoIp";
 export async function GET(request, { params }) {
   console.log("ya este en el get");
 
-  const geo = await Geo.findOne({ ip: params.ipAddress });
-  return NextResponse.json(geo);
+  try {
+    const geo = await Geo.findOne({ ip: params.ipAddress });
+    return geo
+      ? NextResponse.json(geo)
+      : NextResponse.json(
+          { error: "No se encontró el GeoIp." },
+          { status: 404 }
+        );
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Hubo un error al buscar el GeoIp." },
+      { status: 500 }
+    );
+  }
 }
