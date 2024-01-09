@@ -5,7 +5,7 @@ import fetchIpGeoData from "./api/fetchIpGeoData";
 import { useCallback, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
 import useTimezoneConvert from "./hooks/useTimezoneConvert";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 const loadingMsg = "Loading...";
 const initialData = {
   query: "185.211.213.148",
