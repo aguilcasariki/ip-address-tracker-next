@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import Geo from "../../../(models)/GeoIp";
+import Geo from "../../(models)/GeoIp";
 
 export async function GET() {
   try {
