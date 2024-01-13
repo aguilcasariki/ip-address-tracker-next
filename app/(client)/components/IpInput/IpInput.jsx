@@ -22,7 +22,10 @@ const IpInput = ({ handleSubmit, handleChange }) => {
       </h1>
       <form onSubmit={handleSubmit} className="mt-6">
         <div className="form_wrapper flex items-center">
-          <Downshift itemToString={(item) => (item ? item : "")}>
+          <Downshift
+            onChange={handleChange}
+            itemToString={(item) => (item ? item : "")}
+          >
             {({
               getInputProps,
               getItemProps,
@@ -34,7 +37,6 @@ const IpInput = ({ handleSubmit, handleChange }) => {
             }) => (
               <div className="autocomplete_wrapper relative lg:w-96">
                 <input
-                  onChange={handleChange}
                   {...getInputProps()}
                   type="text"
                   placeholder="Search for any IP address or domain"
