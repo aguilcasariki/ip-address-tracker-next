@@ -7,7 +7,7 @@ const Map = dynamic(() => import("./components/Map/Map.jsx"), {
 });
 
 import fetchIpGeoData from "./api/fetchIpGeoData";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import IpCard from "./components/IpCard/IpCard";
 import useTimezoneConvert from "./hooks/useTimezoneConvert";
 
@@ -15,58 +15,62 @@ const loadingMsg = "Loading...";
 
 const App = () => {
   // Define the initial state of inputValue and ip as empty strings.
-
-  const [ip, setIp] = useState("");
+  const [inputValue, setInputValue] = useState();
   const [geoData, setGeoData] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchIpGeoData();
+      setGeoData(data);
+    };
+
+    fetchData();
+  }, []);
 
   // Define the callbacks to handle form change and submission.
   const handleChange = useCallback((event) => {
-    setIp(event);
+    setInputValue(event);
   }, []);
 
   const handleSubmit = useCallback(
-    (event) => {
-      console.log("SE HIZO EL SUBMIT"), event.preventDefault();
-      const data = fetchIpGeoData(ip);
+    async (event) => {
+      event.preventDefault();
+      const data = await fetchIpGeoData(inputValue);
       setGeoData(data);
     },
-    [ip]
+    [inputValue]
   );
 
-  // Use a custom hook to convert the timezone to a readable string.
-  const timezones = useTimezoneConvert(geoData?.timezone);
-
+  const { ip, location, isp } = geoData ?? {};
   // Use useMemo to avoid unnecessary calculations of center and cardData.
   const center = useMemo(() => {
-    return geoData ? [geoData.lat, geoData.lon] : [34.0648, -118.086];
-  }, [geoData]);
+    return geoData ? [location.lat, location.lng] : [34.0648, -118.086];
+  }, [geoData, location]);
 
   const cardData = useMemo(
     () => [
       {
         title: "IP ADDRESS",
-        info: geoData?.query ?? loadingMsg,
+        info: ip,
       },
       {
         title: "LOCATION",
-        info: geoData
-          ? `${geoData.city}, ${geoData.region} 
-        ${geoData.zip}`
-          : loadingMsg,
+        info: location
+          ? `${location.city}, 
+          ${location.region}, 
+        ${location.zip}`
+          : "",
       },
       {
         title: "TIMEZONE",
-        info: timezones
-          ? `${timezones[0]}
-        ${timezones[1]}`
-          : loadingMsg,
+        info: location?.timezone,
       },
       {
         title: "ISP",
-        info: geoData?.isp ?? loadingMsg,
+        info: isp,
       },
     ],
-    [geoData, timezones]
+    [ip, isp, location]
   );
 
   // Render the IpInput, IpCard, and Map components with the fetched information.
