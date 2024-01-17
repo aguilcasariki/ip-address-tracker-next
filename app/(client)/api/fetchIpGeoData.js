@@ -4,7 +4,6 @@ const fetchIpGeoData = async (ipAddress) => {
     : "https://ip-address-tracker-next.vercel.app/api/ip";
 
   const response = await fetch(apiUrl);
-
   const data = await response.json();
 
   return data;

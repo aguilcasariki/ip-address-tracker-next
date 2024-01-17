@@ -1,18 +1,17 @@
-"use client";
+import React, { useState } from "react";
 import Downshift from "downshift";
 import PropTypes from "prop-types";
-import { useState } from "react";
 
-const ipAddresses = ["219.220.53.44", "192.168.1.2", "10.0.0.1"];
+const validIpAddresses = ["219.220.53.44", "192.168.1.2", "10.0.0.1"];
 
-const IpInput = ({ handleSubmit, handleChange }) => {
+const IpAddressInput = ({ handleSubmit, handleChange }) => {
   const [focused, setFocused] = useState(false);
-  const handleFocus = () => {
-    setFocused(true);
-  };
+  const [selectedItem, setSelectedItem] = useState("");
 
-  const handleBlur = () => {
-    setFocused(false);
+  const handleStateChange = (changes) => {
+    if (changes.hasOwnProperty("inputValue")) {
+      setSelectedItem(changes.inputValue || "");
+    }
   };
 
   return (
@@ -24,35 +23,38 @@ const IpInput = ({ handleSubmit, handleChange }) => {
         <div className="form_wrapper flex items-center">
           <Downshift
             onChange={handleChange}
-            itemToString={(item) => (item ? item : "")}
+            onStateChange={handleStateChange}
+            selectedItem={selectedItem}
+            inputValue={selectedItem}
           >
             {({
               getInputProps,
               getItemProps,
               getMenuProps,
-
               inputValue,
               highlightedIndex,
               selectedItem,
+              isOpen,
             }) => (
               <div className="autocomplete_wrapper relative lg:w-96">
                 <input
-                  {...getInputProps()}
+                  {...getInputProps({
+                    onFocus: () => setFocused(true),
+                    onBlur: () => setFocused(false),
+                  })}
                   type="text"
                   placeholder="Search for any IP address or domain"
                   className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
                   name="ip_address"
-                  pattern="^(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)\.)+(?:[a-zA-Z]{2,6}\.?))|(?:(?:(?:(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}(?:[0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))|(?:(?:(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,7}:)|(?:(?:[A-Fa-f0-9]{1,4}:){1,6}:[A-Fa-f0-9]{1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,5}(?::[A-Fa-f0-9]{1,4}){1,2})|(?:(?:[A-Fa-f0-9]{1,4}:){1,4}(?::[A-Fa-f0-9]{1,4}){1,3})|(?:(?:[A-Fa-f0-9]{1,4}:){1,3}(?::[A-Fa-f0-9]{1,4}){1,4})|(?:(?:[A-Fa-f0-9]{1,4}:){1,2}(?::[A-Fa-f0-9]{1,4}){1,5})|(?:(?:[A-Fa-f0-9]{1,4}:)(?::[A-Fa-f0-9]{1,4}){1,6})|(?::(?::[A-Fa-f0-9]{1,4}){1,7}|:)))$"
+                  pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
                   required
-                  onFocus={handleFocus}
-                  onBlur={handleBlur}
                 />
-                <ul
-                  {...getMenuProps()}
-                  className="autocomplete_list absolute z-50 w-full shadow-lg"
-                >
-                  {focused &&
-                    ipAddresses
+                {isOpen && (
+                  <ul
+                    {...getMenuProps()}
+                    className="autocomplete_list absolute z-50 w-full shadow-lg"
+                  >
+                    {validIpAddresses
                       .filter(
                         (item) => !inputValue || item.includes(inputValue)
                       )
@@ -66,14 +68,13 @@ const IpInput = ({ handleSubmit, handleChange }) => {
                               highlightedIndex === index ? "#545769" : "white",
                             color:
                               highlightedIndex === index ? "white" : "black",
-                            fontWeight:
-                              selectedItem === item ? "bold" : "normal",
                           }}
                         >
                           {item}
                         </li>
                       ))}
-                </ul>
+                  </ul>
+                )}
               </div>
             )}
           </Downshift>
@@ -97,9 +98,9 @@ const IpInput = ({ handleSubmit, handleChange }) => {
   );
 };
 
-export default IpInput;
+export default IpAddressInput;
 
-IpInput.propTypes = {
+IpAddressInput.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
 };

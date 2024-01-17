@@ -1,33 +1,38 @@
 "use client";
-import IpInput from "./components/IpInput/IpInput";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import dynamic from "next/dynamic";
+import IpInput from "./components/IpInput/IpInput";
+import fetchIpGeoData from "./api/fetchIpGeoData";
+import IpCard from "./components/IpCard/IpCard";
+import IpComboBox from "./components/IpCombobox/IpCombobox";
+
+const loadingMsg = "Loading...";
 
 const Map = dynamic(() => import("./components/Map/Map.jsx"), {
   ssr: false,
 });
 
-import fetchIpGeoData from "./api/fetchIpGeoData";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import IpCard from "./components/IpCard/IpCard";
-import useTimezoneConvert from "./hooks/useTimezoneConvert";
-
-const loadingMsg = "Loading...";
-
 const App = () => {
-  // Define the initial state of inputValue and ip as empty strings.
-  const [inputValue, setInputValue] = useState();
-  const [geoData, setGeoData] = useState();
+  const [inputValue, setInputValue] = useState("");
+  const [geoData, setGeoData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchIpGeoData();
-      setGeoData(data);
+      try {
+        const data = await fetchIpGeoData();
+        setGeoData(data);
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchData();
   }, []);
 
-  // Define the callbacks to handle form change and submission.
   const handleChange = useCallback((event) => {
     setInputValue(event);
   }, []);
@@ -35,51 +40,65 @@ const App = () => {
   const handleSubmit = useCallback(
     async (event) => {
       event.preventDefault();
+      setIsLoading(true);
+      setIsError(false);
+
       const data = await fetchIpGeoData(inputValue);
       setGeoData(data);
+
+      if (data.error) {
+        setIsError(true);
+      }
+
+      setIsLoading(false);
     },
     [inputValue]
   );
 
-  const { ip, location, isp } = geoData ?? {};
-  // Use useMemo to avoid unnecessary calculations of center and cardData.
+  const { ip, location, isp } = geoData || {};
   const center = useMemo(() => {
-    return geoData ? [location.lat, location.lng] : [34.0648, -118.086];
-  }, [geoData, location]);
+    return location ? [location.lat, location.lng] : [34.0648, -118.086];
+  }, [location]);
 
-  const cardData = useMemo(
-    () => [
+  const cardData = useMemo(() => {
+    if (isError) {
+      return [];
+    }
+    return [
       {
         title: "IP ADDRESS",
-        info: ip,
+        info: isLoading ? loadingMsg : ip,
       },
       {
         title: "LOCATION",
-        info: location
-          ? `${location.city}, 
-          ${location.region}, 
-        ${location.zip}`
-          : "",
+        info: isLoading
+          ? loadingMsg
+          : `${location.city}, ${location.region}, ${location.zip}`,
       },
       {
         title: "TIMEZONE",
-        info: location?.timezone,
+        info: isLoading ? loadingMsg : location.timezone,
       },
       {
         title: "ISP",
-        info: isp,
+        info: isLoading ? loadingMsg : isp,
       },
-    ],
-    [ip, isp, location]
-  );
+    ];
+  }, [ip, isp, location, isLoading, isError]);
 
-  // Render the IpInput, IpCard, and Map components with the fetched information.
   return (
     <div className="h-screen flex flex-col items-center">
-      <IpInput handleChange={handleChange} handleSubmit={handleSubmit} />
+      <IpComboBox handleChange={handleChange} handleSubmit={handleSubmit} />
 
-      <IpCard cardData={cardData} />
-      <Map position={center} />
+      {isError ? (
+        <h1>{geoData.error}</h1>
+      ) : (
+        <>
+          <IpCard cardData={cardData} />
+
+          <Map position={center} />
+        </>
+      )}
     </div>
   );
 };
