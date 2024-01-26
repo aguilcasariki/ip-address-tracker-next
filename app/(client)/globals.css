@@ -5,3 +5,6 @@
 :root {
   font-size: 1.125rem;
 }
+input[list]::-webkit-calendar-picker-indicator {
+  display: none !important;
+}

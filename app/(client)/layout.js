@@ -1,3 +1,4 @@
+import AppContextProvider from "./context/AppContext";
 import "./globals.css";
 import { Rubik } from "next/font/google";
 
@@ -11,7 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={rubik.className}>{children}</body>
+      <body className={rubik.className}>
+        <AppContextProvider>{children}</AppContextProvider>
+      </body>
     </html>
   );
 }

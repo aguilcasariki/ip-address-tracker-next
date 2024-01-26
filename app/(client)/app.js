@@ -1,10 +1,11 @@
 "use client";
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useEffect, useCallback, useMemo, useContext } from "react";
 import dynamic from "next/dynamic";
-import IpInput from "./components/IpInput/IpInput";
-import fetchIpGeoData from "./api/fetchIpGeoData";
+
+import fetchIpGeoData from "./(api)/fetchIpGeoData";
 import IpCard from "./components/IpCard/IpCard";
 import IpComboBox from "./components/IpCombobox/IpCombobox";
+import { AppContext } from "./context/AppContext";
 
 const loadingMsg = "Loading...";
 
@@ -13,10 +14,16 @@ const Map = dynamic(() => import("./components/Map/Map.jsx"), {
 });
 
 const App = () => {
-  const [inputValue, setInputValue] = useState("");
-  const [geoData, setGeoData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const {
+    inputValue,
+    setInputValue,
+    geoData,
+    setGeoData,
+    isLoading,
+    setIsLoading,
+    isError,
+    setIsError,
+  } = useContext(AppContext);
 
   useEffect(() => {
     const fetchData = async () => {
