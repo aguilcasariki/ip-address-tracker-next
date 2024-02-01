@@ -21,7 +21,7 @@ const App = () => {
   } = useBusinessLogic();
 
   return (
-    <div className="h-screen flex flex-col items-center">
+    <div className="h-screen min-h-[667px] flex flex-col items-center">
       <IpComboBox handleChange={handleChange} handleSubmit={handleSubmit} />
 
       {isError ? (

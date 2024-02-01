@@ -15,7 +15,7 @@ const IpComboBox = ({ handleSubmit, handleChange }) => {
           <input
             onChange={handleChange}
             type="text"
-            placeholder="Search for any IP address or domain"
+            placeholder="Search for these IP address or domain"
             className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
             name="ip_address"
             required
