@@ -5,7 +5,7 @@ export async function GET(req, { params }) {
   const { ipAddress } = params;
   try {
     const geo = await Geo.findOne({
-      $or: [{ ip: ipAddress }, { domain: encodeURIComponent(ipAddress) }],
+      $or: [{ ip: ipAddress }, { domain: ipAddress }],
     });
     return geo
       ? NextResponse.json(geo)
