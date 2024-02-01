@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import Geo from "../../../(models)/GeoIp";
 
-export async function GET(request, { params }) {
+export async function GET({ params }) {
+  const { ipAddress } = params;
   try {
     const geo = await Geo.findOne({
-      $or: [{ ip: params.ipAddress }, { domain: params.ipAddress }],
+      $or: [{ ip: ipAddress }, { domain: encodeURIComponent(ipAddress) }],
     });
     return geo
       ? NextResponse.json(geo)

@@ -3,7 +3,7 @@ import Geo from "../../(models)/GeoIp";
 
 export async function GET() {
   try {
-    const geo = await Geo.findOne();
+    const geo = await Geo.findOne({ ip: "219.220.53.44" });
     return geo
       ? NextResponse.json(geo)
       : NextResponse.json(

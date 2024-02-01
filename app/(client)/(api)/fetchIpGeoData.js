@@ -1,4 +1,5 @@
 const fetchIpGeoData = async (ipAddress) => {
+  console.log("ipAddress", encodeURIComponent(ipAddress));
   const apiUrl = ipAddress
     ? `https://ip-address-tracker-next.vercel.app/api/ip/${ipAddress}`
     : "https://ip-address-tracker-next.vercel.app/api/ip";

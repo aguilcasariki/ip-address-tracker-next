@@ -1,4 +1,9 @@
-const ips = ["192.168.1.1", "10.0.0.1", "172.16.0.1", "172.16.0.2"]; // Arreglo estático de direcciones IP
+const ips = [
+  "173.145.163.32",
+  "https://mapquest.com",
+  "78.143.24.65",
+  "http://microsoft.com",
+]; // Arreglo estático de direcciones IP
 const IpComboBox = ({ handleSubmit, handleChange }) => {
   return (
     <div className="input_background w-full md:bg-hero-pattern bg-hero-pattern-mobile bg-no-repeat bg-cover h-96 flex flex-col md:h-72 items-center pb-20 ">
@@ -13,7 +18,6 @@ const IpComboBox = ({ handleSubmit, handleChange }) => {
             placeholder="Search for any IP address or domain"
             className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
             name="ip_address"
-            pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"
             required
             list="ipAddresses"
           />
