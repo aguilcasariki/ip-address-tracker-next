@@ -3,14 +3,19 @@ const ips = [
   "https://mapquest.com",
   "78.143.24.65",
   "http://microsoft.com",
-]; // Arreglo estático de direcciones IP
+];
 const IpComboBox = ({ handleSubmit, handleChange }) => {
   return (
-    <div className="input_background w-full md:bg-hero-pattern bg-hero-pattern-mobile bg-no-repeat bg-cover h-96 flex flex-col md:h-72 items-center pb-20 ">
-      <h1 className="input_title text-white mt-6 text-xl md:text-2xl">
+    <div className="input_background w-full md:bg-hero-pattern bg-hero-pattern-mobile bg-no-repeat bg-cover h-96 flex flex-col md:h-72 items-center pb-20 px-2 pt-1">
+      <p className=" text-xs leading-none text-white">
+        The data presented in this API is generated randomly and does not
+        represent real information. Any apparent correlation with real data is
+        purely coincidental.
+      </p>
+      <h1 className="input_title text-white mt-2 text-xl md:text-2xl  md:mt-6">
         IP Address Tracker
       </h1>
-      <form onSubmit={handleSubmit} className="mt-6">
+      <form onSubmit={handleSubmit} className="mt-2 md:mt-6">
         <div className="form_wrapper flex items-center relative">
           <input
             onChange={handleChange}
