@@ -11,8 +11,8 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: process.env.ALLOW_ORIGIN_HOST,
-          }, // replace this your actual origin
+            value: "*",
+          },
           {
             key: "Access-Control-Allow-Methods",
             value: "GET",
