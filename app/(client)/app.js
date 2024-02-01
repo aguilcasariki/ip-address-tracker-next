@@ -25,7 +25,9 @@ const App = () => {
       <IpComboBox handleChange={handleChange} handleSubmit={handleSubmit} />
 
       {isError ? (
-        <h1>{geoData.error}</h1>
+        <div className=" h-full flex flex-col items-center justify-center">
+          <h1 className=" text-2xl">{geoData.error}</h1>
+        </div>
       ) : (
         <>
           <IpCard cardData={cardData} />

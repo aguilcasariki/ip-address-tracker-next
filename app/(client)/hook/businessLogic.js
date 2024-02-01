@@ -70,7 +70,7 @@ export const useBusinessLogic = () => {
         title: "LOCATION",
         info: isLoading
           ? loadingMsg
-          : `${location.city}, ${location.region}, ${location.zip}`,
+          : `${location.city}, ${location.region}, ${location.postalCode}`,
       },
       {
         title: "TIMEZONE",
