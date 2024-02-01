@@ -25,7 +25,7 @@ const App = () => {
       <IpComboBox handleChange={handleChange} handleSubmit={handleSubmit} />
 
       {isError ? (
-        <div className=" h-full flex flex-col items-center justify-center">
+        <div className=" h-full flex flex-col items-center justify-center px-6">
           <h1 className=" text-2xl">{geoData.error}</h1>
         </div>
       ) : (
