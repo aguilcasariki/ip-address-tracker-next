@@ -30,10 +30,10 @@ IP ADDRESS TRACKER
 - CSS custom properties
 - Flexbox
 - Mobile-first workflow
-- React.js(https://react.dev/)
+- Next.js(https://nextjs.org/)
 - TailwindCSS(https://tailwindcss.com/)
-- React Query(https://tanstack.com/)
-- Ip-Api(https://ip-api.com/)
+- MongoDB(https://www.mongodb.com/)
+- Mongoose(https://mongoosejs.com)
 - React Leaflet(https://react-leaflet.js.org/)
 - Google Fonts(https://fonts.google.com/)
 - Favicon.io(https://favicon.io/)
