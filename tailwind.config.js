@@ -13,8 +13,8 @@ export const theme = {
       focusShadow: "0 0 5px 2px rgba(255,255,255,0.5)",
     },
     backgroundImage: {
-      "hero-pattern": "url('/pattern-bg-desktop.png')",
-      "hero-pattern-mobile": "url('/pattern-bg-mobile.png')",
+      "hero-pattern": "url('/pattern-bg-desktop.webp')",
+      "hero-pattern-mobile": "url('/pattern-bg-mobile.webp')",
     },
   },
   colors: {
