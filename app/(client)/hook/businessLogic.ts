@@ -4,6 +4,13 @@ import { AppContext } from "../context/AppContext";
 const loadingMsg = "Loading...";
 
 export const useBusinessLogic = () => {
+  const context = useContext(AppContext);
+
+  if (!context) {
+    throw new Error(
+      "useBusinessLogic must be used within an AppContextProvider"
+    );
+  }
   const {
     inputValue,
     setInputValue,
@@ -13,7 +20,7 @@ export const useBusinessLogic = () => {
     setIsLoading,
     isError,
     setIsError,
-  } = useContext(AppContext);
+  } = context;
 
   useEffect(() => {
     const fetchData = async () => {

@@ -11,12 +11,4 @@ const IpCard = ({ cardData }) => {
   );
 };
 
-IpCard.propTypes = {
-  cardData: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      info: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};
 export default IpCard;

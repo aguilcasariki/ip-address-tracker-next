@@ -1,10 +1,9 @@
 import dynamic from "next/dynamic";
 
-import IpCard from "./components/IpCard/IpCard";
-import IpComboBox from "./components/IpCombobox/IpCombobox";
 import { useBusinessLogic } from "./hook/businessLogic";
+import IpCard from "./components/IpCard/IpCard";
 
-const Map = dynamic(() => import("./components/Map/Map.jsx"), {
+const Map = dynamic(() => import("./components/Map/Map"), {
   ssr: false,
 });
 
@@ -22,8 +21,6 @@ const App = () => {
 
   return (
     <div className="h-screen min-h-[667px] flex flex-col items-center">
-      <IpComboBox handleChange={handleChange} handleSubmit={handleSubmit} />
-
       {isError ? (
         <div className=" h-full flex flex-col items-center justify-center px-6">
           <h1 className=" text-2xl">{geoData.error}</h1>
