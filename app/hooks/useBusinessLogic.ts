@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useMemo, useContext } from "react";
 import fetchIpGeoData from "../(api)/fetchIpGeoData";
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "@/context/AppContext";
 const loadingMsg = "Loading...";
 
 export const useBusinessLogic = () => {

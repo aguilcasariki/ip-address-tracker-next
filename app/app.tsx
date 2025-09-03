@@ -1,9 +1,10 @@
 import dynamic from "next/dynamic";
 
-import { useBusinessLogic } from "./hook/businessLogic";
-import IpCard from "./components/IpCard/IpCard";
+import { useBusinessLogic } from "@/hooks/useBusinessLogic";
+import IpCard from "@/components/IpCard/IpCard";
+import IpInput from "@/components/IpInput";
 
-const Map = dynamic(() => import("./components/Map/Map"), {
+const Map = dynamic(() => import("./components/Map"), {
   ssr: false,
 });
 
@@ -21,6 +22,7 @@ const App = () => {
 
   return (
     <div className="h-screen min-h-[667px] flex flex-col items-center">
+      <IpInput handleChange={handleChange} handleSubmit={handleSubmit} />
       {isError ? (
         <div className=" h-full flex flex-col items-center justify-center px-6">
           <h1 className=" text-2xl">{geoData.error}</h1>

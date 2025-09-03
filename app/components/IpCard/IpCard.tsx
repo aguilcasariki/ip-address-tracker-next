@@ -1,5 +1,4 @@
 import CardColumn from "./CardColumn/CardColumn";
-import PropTypes from "prop-types";
 
 const IpCard = ({ cardData }) => {
   return (
