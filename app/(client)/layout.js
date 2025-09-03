@@ -6,7 +6,7 @@ const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Ip Address Tracker",
-  description: "",
+  description: ""
 };
 
 export default function RootLayout({ children }) {

@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import Geo from "../../../(models)/GeoIp";
 
-export async function GET(req, { params }) {
+export async function GET(req, props) {
+  const params = await props.params;
   const { ipAddress } = params;
   try {
     const geo = await Geo.findOne({
