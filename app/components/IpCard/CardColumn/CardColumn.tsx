@@ -1,4 +1,36 @@
-export default function CardColumn({ columnData }) {
+"use client";
+import { AppContext } from "@/context/AppContext";
+import { useContext } from "react";
+
+export default function CardColumn() {
+  const context = useContext(AppContext);
+  const { geoData } = context;
+
+  console.log("geoData in CardColumn:", geoData);
+
+  const columnData = [
+    {
+      title: "IP Address",
+      info: geoData?.ip ?? "...",
+    },
+    {
+      title: "Location",
+      info: geoData?.location
+        ? `${geoData.location.city}, ${geoData.location.state}`
+        : "...",
+    },
+    {
+      title: "ISP",
+      info: geoData?.isp?.isp ?? "...",
+    },
+    {
+      title: "Timezone",
+      info: geoData?.location?.timezone
+        ? `UTC ${geoData.location.timezone}`
+        : "...",
+    },
+  ];
+
   return (
     <>
       {columnData.map((data, i) => (

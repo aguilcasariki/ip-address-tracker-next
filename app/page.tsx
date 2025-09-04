@@ -1,12 +1,18 @@
-"use client";
-import dynamic from "next/dynamic";
+import IpCard from "@/components/IpCard/IpCard";
 
-const App = dynamic(() => import("./app"), {
-  ssr: false,
-});
+import IpInput from "@/components/IpInput";
+import Map from "@/components/Map";
 
-function Page() {
-  return <App />;
-}
+const index = () => {
+  return (
+    <div className="h-screen min-h-[667px] flex flex-col items-center">
+      <IpInput />
 
-export default Page;
+      <IpCard />
+
+      <Map />
+    </div>
+  );
+};
+
+export default index;

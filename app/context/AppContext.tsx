@@ -11,13 +11,15 @@ export interface GeoData {
   ip?: string;
   location?: {
     city: string;
-    region: string;
-    postalCode: string;
+    state: string;
+
     timezone: string;
-    lat: number;
-    lng: number;
+    latitude: number;
+    longitude: number;
   };
-  isp?: string;
+  isp?: {
+    isp: string;
+  };
   error?: string;
 }
 

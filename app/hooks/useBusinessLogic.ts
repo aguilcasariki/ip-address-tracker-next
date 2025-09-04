@@ -1,7 +1,28 @@
 import { useEffect, useCallback, useMemo, useContext } from "react";
-import fetchIpGeoData from "../(api)/fetchIpGeoData";
-import { AppContext } from "@/context/AppContext";
-const loadingMsg = "Loading...";
+import { AppContext, GeoData } from "@/context/AppContext";
+
+const fetchIpGeoData = async (target = ""): Promise<GeoData> => {
+  try {
+    const response = await fetch("/api", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ target }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      return {
+        error: data.error || `Request failed with status ${response.status}`,
+      };
+    }
+    return data;
+  } catch (error) {
+    console.error("Error fetching IP geo data:", error);
+    return { error: "An unexpected error occurred while fetching data." };
+  }
+};
 
 export const useBusinessLogic = () => {
   const context = useContext(AppContext);
@@ -24,84 +45,39 @@ export const useBusinessLogic = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await fetchIpGeoData();
-        setGeoData(data);
-      } catch (error) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
+      const data = await fetchIpGeoData();
+      setGeoData(data);
     };
 
     fetchData();
-  }, []);
+  }, [setGeoData]); // The setters from context are stable, this effect runs only once on mount.
 
-  const handleChange = useCallback((event) => {
-    setInputValue(event.target.value);
-  }, []);
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(event.target.value);
+    },
+    [setInputValue]
+  );
 
   const handleSubmit = useCallback(
-    async (event) => {
+    async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setIsLoading(true);
       setIsError(false);
 
       const data = await fetchIpGeoData(inputValue);
       setGeoData(data);
-
       if (data.error) {
         setIsError(true);
       }
 
       setIsLoading(false);
     },
-    [inputValue]
+    [inputValue, setGeoData, setIsLoading, setIsError]
   );
 
-  const { ip, location, isp } = geoData || {};
-  const center = useMemo(() => {
-    return location ? [location.lat, location.lng] : [34.0648, -118.086];
-  }, [location]);
-
-  const cardData = useMemo(() => {
-    if (isError) {
-      return [];
-    }
-    return [
-      {
-        title: "IP ADDRESS",
-        info: isLoading ? loadingMsg : ip,
-      },
-      {
-        title: "LOCATION",
-        info: isLoading
-          ? loadingMsg
-          : `${location.city}, ${location.region}, ${location.postalCode}`,
-      },
-      {
-        title: "TIMEZONE",
-        info: isLoading ? loadingMsg : location.timezone,
-      },
-      {
-        title: "ISP",
-        info: isLoading ? loadingMsg : isp,
-      },
-    ];
-  }, [ip, isp, location, isLoading, isError]);
-
   return {
-    inputValue,
-    setInputValue,
-    geoData,
-    setGeoData,
-    isLoading,
-    setIsLoading,
-    isError,
-    setIsError,
     handleChange,
     handleSubmit,
-    center,
-    cardData,
   };
 };

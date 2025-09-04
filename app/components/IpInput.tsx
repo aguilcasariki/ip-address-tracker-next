@@ -1,4 +1,8 @@
-export default function IpInput({ handleSubmit, handleChange }) {
+"use client";
+import { useBusinessLogic } from "@/hooks/useBusinessLogic";
+
+export default function IpInput() {
+  const { handleChange, handleSubmit } = useBusinessLogic();
   return (
     <div className="input_background w-full md:bg-hero-pattern bg-hero-pattern-mobile bg-no-repeat bg-cover h-96 flex flex-col md:h-72 items-center pb-20 px-2 pt-1">
       <h1 className="input_title text-white mt-2 text-xl md:text-2xl  md:mt-6">

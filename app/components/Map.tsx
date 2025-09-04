@@ -1,7 +1,9 @@
+"use client";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import PropTypes from "prop-types";
+import { useContext } from "react";
+import { AppContext } from "@/context/AppContext";
 const markerIcon = new Icon({
   iconUrl: "/icon-location.svg",
   iconSize: [null, 41],
@@ -10,15 +12,19 @@ const markerIcon = new Icon({
   tooltipAnchor: [16, -28],
 });
 
-const Map = ({ position }) => {
+const Map = () => {
+  const context = useContext(AppContext);
+  const { geoData } = context;
+  const position: [number, number] = [
+    geoData?.location?.latitude ?? 0,
+    geoData?.location?.longitude ?? 0,
+  ];
   return (
     <MapContainer
       key={position.join(",")}
       center={position}
       zoom={50}
-      className="w-screen h-full md:mt-[-4.2rem] mt-[-7.8rem] -z-50"
-      scrollWheelZoom={false}
-      zoomControl={false}
+      className="w-screen h-full"
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -32,10 +38,6 @@ const Map = ({ position }) => {
       </Marker>
     </MapContainer>
   );
-};
-
-Map.propTypes = {
-  position: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
 
 export default Map;
