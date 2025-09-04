@@ -1,4 +1,5 @@
 "use client";
+import { GeoData } from "@/types/geoData";
 import {
   useState,
   createContext,
@@ -6,22 +7,6 @@ import {
   SetStateAction,
   ReactNode,
 } from "react";
-
-export interface GeoData {
-  ip?: string;
-  location?: {
-    city: string;
-    state: string;
-
-    timezone: string;
-    latitude: number;
-    longitude: number;
-  };
-  isp?: {
-    isp: string;
-  };
-  error?: string;
-}
 
 interface AppContextType {
   inputValue: string;
@@ -36,10 +21,16 @@ interface AppContextType {
 
 export const AppContext = createContext<AppContextType | null>(null);
 
-const AppContextProvider = ({ children }: { children: ReactNode }) => {
+const AppContextProvider = ({
+  children,
+  initialGeoData = {},
+}: {
+  children: ReactNode;
+  initialGeoData?: GeoData;
+}) => {
   const [inputValue, setInputValue] = useState("");
-  const [geoData, setGeoData] = useState<GeoData>({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [geoData, setGeoData] = useState<GeoData>(initialGeoData);
+  const [isLoading, setIsLoading] = useState(!initialGeoData);
   const [isError, setIsError] = useState(false);
 
   return (

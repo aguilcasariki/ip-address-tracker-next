@@ -6,8 +6,6 @@ export default function CardColumn() {
   const context = useContext(AppContext);
   const { geoData } = context;
 
-  console.log("geoData in CardColumn:", geoData);
-
   const columnData = [
     {
       title: "IP Address",

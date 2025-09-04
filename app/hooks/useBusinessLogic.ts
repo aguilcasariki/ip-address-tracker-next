@@ -1,28 +1,6 @@
-import { useEffect, useCallback, useMemo, useContext } from "react";
-import { AppContext, GeoData } from "@/context/AppContext";
-
-const fetchIpGeoData = async (target = ""): Promise<GeoData> => {
-  try {
-    const response = await fetch("/api", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ target }),
-    });
-
-    const data = await response.json();
-    if (!response.ok) {
-      return {
-        error: data.error || `Request failed with status ${response.status}`,
-      };
-    }
-    return data;
-  } catch (error) {
-    console.error("Error fetching IP geo data:", error);
-    return { error: "An unexpected error occurred while fetching data." };
-  }
-};
+import { useCallback, useContext } from "react";
+import { AppContext } from "@/context/AppContext";
+import { getGeoData } from "@/actions/getIpGeoData";
 
 export const useBusinessLogic = () => {
   const context = useContext(AppContext);
@@ -43,15 +21,6 @@ export const useBusinessLogic = () => {
     setIsError,
   } = context;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchIpGeoData();
-      setGeoData(data);
-    };
-
-    fetchData();
-  }, [setGeoData]); // The setters from context are stable, this effect runs only once on mount.
-
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value);
@@ -65,7 +34,7 @@ export const useBusinessLogic = () => {
       setIsLoading(true);
       setIsError(false);
 
-      const data = await fetchIpGeoData(inputValue);
+      const data = await getGeoData(inputValue);
       setGeoData(data);
       if (data.error) {
         setIsError(true);
