@@ -4,28 +4,26 @@ import { useContext } from "react";
 
 export default function CardColumn() {
   const context = useContext(AppContext);
-  const { geoData } = context;
+  const { geoData, isLoading, error } = context;
 
   const columnData = [
     {
       title: "IP Address",
-      info: geoData?.ip ?? "...",
+      info: !isLoading ? geoData?.ip : "...",
     },
     {
       title: "Location",
-      info: geoData?.location
-        ? `${geoData.location.city}, ${geoData.location.state}`
+      info: !isLoading
+        ? `${geoData?.location?.city}, ${geoData?.location?.state}`
         : "...",
     },
     {
       title: "ISP",
-      info: geoData?.isp?.isp ?? "...",
+      info: !isLoading ? geoData?.isp?.isp : "...",
     },
     {
       title: "Timezone",
-      info: geoData?.location?.timezone
-        ? `UTC ${geoData.location.timezone}`
-        : "...",
+      info: !isLoading ? `UTC ${geoData?.location?.timezone}` : "...",
     },
   ];
 
@@ -42,7 +40,7 @@ export default function CardColumn() {
             {data.title}
           </h2>
           <p className="card_column-info mt-1 md:text-lg text-center">
-            {data.info}
+            {error ? "Error" : data.info}
           </p>
         </div>
       ))}

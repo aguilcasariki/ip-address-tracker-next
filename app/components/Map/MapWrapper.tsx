@@ -1,12 +1,31 @@
 "use client";
+import { AppContext } from "@/context/AppContext";
 import dynamic from "next/dynamic";
+import { useContext } from "react";
 
 const Map = dynamic(() => import("@/components/Map/Map"), {
   ssr: false,
 });
 
 const MapWrapper = () => {
-  return <Map />;
+  const context = useContext(AppContext);
+  const { isLoading, error } = context;
+
+  return (
+    <>
+      {isLoading ? (
+        <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
+          <h1>Loading...</h1>
+        </div>
+      ) : error ? (
+        <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
+          <h1>{error}</h1>
+        </div>
+      ) : (
+        <Map />
+      )}
+    </>
+  );
 };
 
 export default MapWrapper;

@@ -17,8 +17,7 @@ export const useBusinessLogic = () => {
     setGeoData,
     isLoading,
     setIsLoading,
-    isError,
-    setIsError,
+    setError,
   } = context;
 
   const handleChange = useCallback(
@@ -32,17 +31,17 @@ export const useBusinessLogic = () => {
     async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
       setIsLoading(true);
-      setIsError(false);
+      setError(null);
 
       const data = await getGeoData(inputValue);
       setGeoData(data);
       if (data.error) {
-        setIsError(true);
+        setError(data.error);
       }
 
       setIsLoading(false);
     },
-    [inputValue, setGeoData, setIsLoading, setIsError]
+    [inputValue, setGeoData, setIsLoading, setError]
   );
 
   return {

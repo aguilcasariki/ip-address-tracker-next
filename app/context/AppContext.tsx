@@ -15,8 +15,8 @@ interface AppContextType {
   setGeoData: Dispatch<SetStateAction<GeoData>>;
   isLoading: boolean;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
-  isError: boolean;
-  setIsError: Dispatch<SetStateAction<boolean>>;
+  error: string | null;
+  setError: Dispatch<SetStateAction<string | null>>;
 }
 
 export const AppContext = createContext<AppContextType | null>(null);
@@ -30,8 +30,8 @@ const AppContextProvider = ({
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [geoData, setGeoData] = useState<GeoData>(initialGeoData);
-  const [isLoading, setIsLoading] = useState(!initialGeoData);
-  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   return (
     <AppContext.Provider
@@ -42,8 +42,8 @@ const AppContextProvider = ({
         setGeoData,
         isLoading,
         setIsLoading,
-        isError,
-        setIsError,
+        error,
+        setError,
       }}
     >
       {children}
