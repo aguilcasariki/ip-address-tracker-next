@@ -1,7 +1,7 @@
 import IpCard from "@/components/IpCard/IpCard";
 
 import IpInput from "@/components/IpInput";
-import Map from "@/components/Map";
+import MapWrapper from "@/components/Map/MapWrapper";
 
 const index = () => {
   return (
@@ -10,7 +10,7 @@ const index = () => {
 
       <IpCard />
 
-      <Map />
+      <MapWrapper />
     </div>
   );
 };
