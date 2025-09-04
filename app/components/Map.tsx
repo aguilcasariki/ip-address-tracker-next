@@ -1,5 +1,11 @@
 "use client";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+  ZoomControl,
+} from "react-leaflet";
 import { Icon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useContext } from "react";
@@ -24,7 +30,8 @@ const Map = () => {
       key={position.join(",")}
       center={position}
       zoom={50}
-      className="w-screen h-full"
+      className="w-screen h-full z-0"
+      zoomControl={false}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -36,6 +43,7 @@ const Map = () => {
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
       </Marker>
+      <ZoomControl position="bottomleft" />
     </MapContainer>
   );
 };
