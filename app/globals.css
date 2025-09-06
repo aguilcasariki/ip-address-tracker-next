@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-white: #ffffff;
+  --color-very-dark-gray: hsl(0, 0%, 17%);
+  --color-dark-gray: #545769;
+
+  --shadow-focus-shadow: 0 0 5px 2px rgba(255, 255, 255, 0.5);
+
+  --background-image-hero-pattern: url("/pattern-bg-desktop.webp");
+  --background-image-hero-pattern-mobile: url("/pattern-bg-mobile.webp");
+}
 
 :root {
   font-size: 1.125rem;
