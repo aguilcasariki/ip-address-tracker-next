@@ -4,9 +4,13 @@ import {
   Popup,
   TileLayer,
   ZoomControl,
+  MapContainerProps,
 } from "react-leaflet";
 import { Icon } from "leaflet";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import "leaflet.fullscreen/Control.FullScreen.css";
+import "leaflet.fullscreen";
 import { useContext } from "react";
 import { AppContext } from "@/context/AppContext";
 const markerIcon = new Icon({
@@ -16,6 +20,13 @@ const markerIcon = new Icon({
   popupAnchor: [1, -34],
   tooltipAnchor: [16, -28],
 });
+interface ExtendedMapContainerProps extends MapContainerProps {
+  fullscreenControl?: boolean;
+  fullscreenControlOptions?: { position: string };
+}
+
+const ExtendedMapContainer =
+  MapContainer as React.ComponentType<ExtendedMapContainerProps>;
 
 const Map = () => {
   const context = useContext(AppContext);
@@ -25,12 +36,14 @@ const Map = () => {
     geoData?.location?.longitude ?? 0,
   ];
   return (
-    <MapContainer
+    <ExtendedMapContainer
       key={position.join(",")}
       center={position}
       zoom={50}
       className="w-screen h-full z-0"
       zoomControl={false}
+      fullscreenControl={true}
+      fullscreenControlOptions={{ position: "bottomright" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -43,7 +56,7 @@ const Map = () => {
         </Popup>
       </Marker>
       <ZoomControl position="bottomleft" />
-    </MapContainer>
+    </ExtendedMapContainer>
   );
 };
 
