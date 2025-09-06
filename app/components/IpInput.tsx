@@ -14,7 +14,7 @@ export default function IpInput() {
       </h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-2 md:mt-6">
         <div className="form_wrapper flex items-start relative">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col">
             <input
               disabled={isLoading}
               {...register("input")}

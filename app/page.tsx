@@ -8,7 +8,7 @@ const Page = async () => {
   const initialGeoData = await getGeoData();
   return (
     <AppContextProvider initialGeoData={initialGeoData}>
-      <div className="h-screen min-h-[667px] flex flex-col items-center">
+      <div className="h-screen  flex flex-col items-center ">
         <IpInput />
         <IpCard />
         <MapWrapper />

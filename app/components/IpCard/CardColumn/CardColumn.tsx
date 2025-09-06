@@ -28,11 +28,11 @@ export default function CardColumn() {
   ];
 
   return (
-    <>
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-y-4 md:gap-y-0 rounded-2xl  p-6 bg-white shadow-lg">
       {columnData.map((data, i) => (
         <div
           key={i}
-          className={`card_column items-center flex flex-col font-bold  ${
+          className={`card_column items-center flex flex-col font-bold wrap-anywhere px-4  ${
             i === 0 ? "" : "md:border-l md:border-solid md:border-dark-gray"
           }`}
         >
@@ -44,6 +44,6 @@ export default function CardColumn() {
           </p>
         </div>
       ))}
-    </>
+    </div>
   );
 }
