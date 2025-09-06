@@ -1,10 +1,16 @@
 "use client";
 import { AppContext } from "@/context/AppContext";
-import { useBusinessLogic } from "@/hooks/useBusinessLogic";
+import { useGeoData } from "@/hooks/useGeoData";
 import { useContext } from "react";
 
 export default function IpInput() {
-  const { handleChange, handleSubmit } = useBusinessLogic();
+  const {
+    handleChange,
+    handleSubmit,
+    onSubmit,
+    errors: formErrors,
+    register,
+  } = useGeoData();
   const context = useContext(AppContext);
   const { isLoading, error } = context;
   return (
@@ -12,21 +18,28 @@ export default function IpInput() {
       <h1 className="input_title text-white mt-2 text-xl md:text-2xl  md:mt-6">
         IP Address Tracker
       </h1>
-      <form onSubmit={handleSubmit} className="mt-2 md:mt-6">
-        <div className="form_wrapper flex items-center relative">
-          <input
-            disabled={isLoading || !!error}
-            onChange={handleChange}
-            type="text"
-            placeholder="Search for these IP address or domain"
-            className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
-            name="ip_address"
-            required
-            list="ipAddresses"
-          />
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-2 md:mt-6">
+        <div className="form_wrapper flex items-start relative">
+          <div className="flex flex-col items-center">
+            <input
+              disabled={isLoading}
+              {...register("input")}
+              onChange={handleChange}
+              type="text"
+              placeholder="Search for these IP address or domain"
+              className="input_ip rounded-lg py-2 px-3 rounded-e-none shadow md:w-96 cursor-pointer outline-none focus:shadow-focusShadow focus-visible:shadow-focusShadow"
+              name="ip_address"
+              list="ipAddresses"
+            />
+            {formErrors?.input && (
+              <p className="error_message text-red-500">
+                {formErrors.input.message}
+              </p>
+            )}
+          </div>
 
           <button
-            disabled={isLoading || !!error}
+            disabled={isLoading}
             type="submit"
             className="search_btn bg-very-dark-gray p-3.5 rounded-lg rounded-s-none hover:bg-dark-gray  focus:shadow-focusShadow focus-visible:shadow-focusShadow"
           >
