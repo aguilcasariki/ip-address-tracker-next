@@ -7,7 +7,7 @@ import {
   CollapsibleTrigger,
   CollapsibleContent,
 } from "@/components/ui/collapsible";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { ChevronsUpDown } from "lucide-react";
 
 const IpCard = () => {
