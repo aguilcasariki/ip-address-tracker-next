@@ -10,10 +10,15 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
+    "@radix-ui/react-collapsible": "^1.1.12",
+    "@radix-ui/react-slot": "^1.2.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "downshift": "^8.3.1",
     "eslint": "8.49.0",
     "leaflet": "^1.9.4",
     "leaflet.fullscreen": "^4.0.0",
+    "lucide-react": "^0.542.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.3",
     "next": "15.5.2",
@@ -21,6 +26,7 @@
     "react-dom": "19.1.1",
     "react-hook-form": "^7.62.0",
     "react-leaflet": "^5.0.0",
+    "tailwind-merge": "^3.3.1",
     "zod": "^4.1.5"
   },
   "devDependencies": {
@@ -30,6 +36,7 @@
     "@types/react": "19.1.12",
     "eslint-config-next": "15.5.2",
     "postcss": "8.4.29",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "tw-animate-css": "^1.3.8"
   }
 }

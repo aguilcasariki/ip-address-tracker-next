@@ -35,6 +35,7 @@ const Map = () => {
     geoData?.location?.latitude ?? 0,
     geoData?.location?.longitude ?? 0,
   ];
+
   return (
     <ExtendedMapContainer
       key={position.join(",")}
