@@ -59,7 +59,7 @@ const IpCard = () => {
                 colError={error}
               />
             ))}
-            <CollapsibleContent className="w-full flex flex-col items-center gap-y-4">
+            <CollapsibleContent className="data-[state=closed]:animate-collapsible-up overflow-hidden data-[state=open]:animate-collapsible-down w-full flex flex-col items-center gap-y-4 transition-all duration-300">
               {columnData.slice(2).map((data) => (
                 <CardColumn
                   key={data.title}
