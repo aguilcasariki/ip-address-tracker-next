@@ -3,6 +3,7 @@ import { AppContext } from "@/context/AppContext";
 import dynamic from "next/dynamic";
 import { useContext } from "react";
 import MapSkeleton from "./MapSkeleton";
+import { MapPinOff } from "lucide-react";
 
 const Map = dynamic(() => import("@/components/Map/Map"), {
   ssr: false,
@@ -17,8 +18,9 @@ const MapWrapper = () => {
       {isLoading ? (
         <MapSkeleton />
       ) : error ? (
-        <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
-          <h1>{error}</h1>
+        <div className="h-screen w-screen bg-border flex items-center justify-center">
+          <MapPinOff className="size-7 text-destructive" />
+          <h2 className="text-2xl text-destructive">{error}</h2>
         </div>
       ) : (
         <Map />
