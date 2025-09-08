@@ -2,6 +2,7 @@
 import { AppContext } from "@/context/AppContext";
 import dynamic from "next/dynamic";
 import { useContext } from "react";
+import MapSkeleton from "./MapSkeleton";
 
 const Map = dynamic(() => import("@/components/Map/Map"), {
   ssr: false,
@@ -14,9 +15,7 @@ const MapWrapper = () => {
   return (
     <>
       {isLoading ? (
-        <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
-          <h1>Loading...</h1>
-        </div>
+        <MapSkeleton />
       ) : error ? (
         <div className="h-screen w-screen bg-gray-100 flex items-center justify-center">
           <h1>{error}</h1>

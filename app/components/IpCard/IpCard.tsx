@@ -12,30 +12,27 @@ import { ChevronsUpDown } from "lucide-react";
 
 const IpCard = () => {
   const context = useContext(AppContext);
-  const { geoData, isLoading, error } = context;
+  const { geoData, error } = context;
 
   const columnData = [
     {
       title: "IP Address",
-      info: !isLoading ? geoData?.ip : "...",
+      info: geoData?.ip,
     },
     {
       title: "Location",
-      info: !isLoading
-        ? `${geoData?.location?.city}, ${geoData?.location?.state}`
-        : "...",
+      info: `${geoData?.location?.city}, ${geoData?.location?.state}`,
     },
     {
       title: "ISP",
-      info: !isLoading ? geoData?.isp?.isp : "...",
+      info: geoData?.isp?.isp,
     },
     {
       title: "Timezone",
-      info: !isLoading ? `UTC ${geoData?.location?.timezone}` : "...",
+      info: `UTC ${geoData?.location?.timezone}`,
     },
   ];
 
-  const [firstColumn, ...restOfColumns] = columnData;
   return (
     <div className="ip_card_wrapper w-full flex  justify-center items-center mt-20 max-md:h-96 lg:mt-40 z-50 px-2 absolute">
       <Collapsible className="w-full max-w-5xl rounded-2xl p-6 bg-white shadow-lg flex flex-col ">
