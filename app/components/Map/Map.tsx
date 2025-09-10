@@ -41,7 +41,7 @@ const Map = () => {
       key={position.join(",")}
       center={position}
       zoom={50}
-      className="w-screen h-full z-0"
+      className="w-dvw h-full z-0"
       zoomControl={false}
       fullscreenControl={true}
       fullscreenControlOptions={{ position: "bottomright" }}
