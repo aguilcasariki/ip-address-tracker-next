@@ -9,8 +9,6 @@ import {
 } from "react";
 
 interface AppContextType {
-  inputValue: string;
-  setInputValue: Dispatch<SetStateAction<string>>;
   geoData: GeoData;
   setGeoData: Dispatch<SetStateAction<GeoData>>;
   isLoading: boolean;
@@ -28,16 +26,13 @@ const AppContextProvider = ({
   children: ReactNode;
   initialGeoData?: GeoData;
 }) => {
-  const [inputValue, setInputValue] = useState("");
   const [geoData, setGeoData] = useState<GeoData>(initialGeoData);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <AppContext.Provider
       value={{
-        inputValue,
-        setInputValue,
         geoData,
         setGeoData,
         isLoading,

@@ -18,7 +18,7 @@ const MapWrapper = () => {
       {isLoading ? (
         <MapSkeleton />
       ) : error ? (
-        <div className="h-dvh w-dvw bg-border flex items-center justify-center">
+        <div className="h-dvh w-dvw bg-border flex items-center justify-center gap-2">
           <MapPinOff className="size-7 text-destructive" />
           <h2 className="text-2xl text-destructive">{error}</h2>
         </div>

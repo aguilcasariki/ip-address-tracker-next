@@ -2,6 +2,7 @@
 import { GeoData } from "@/types/geoData";
 import { promises as dns } from "dns";
 import net from "net";
+import { domainOrIpSchema } from "@/lib/inputValidation";
 
 // The external API that provides geolocation data.
 const GEO_API_URL = "https://api.ipquery.io/";
@@ -11,16 +12,25 @@ export async function getGeoData(target: string = ""): Promise<GeoData> {
 
   // Determine if the 'target' is an IP, a domain, or empty.
   if (target === "") {
-    // If target is empty, we don't set ipAddress or domain.
-    // The external API will use the request's IP.
     console.log("Input is empty, fetching data for the client IP.");
     // We pass an empty string to the external API, which will use the request's IP.
     ipAddress = (await fetch(GEO_API_URL).then((res) => res.text())).toString();
   } else if (net.isIP(target)) {
-    // If it's already an IP (v4 or v6), we use it directly.
+    // If it's an IP, we still validate it with our schema.
+    const validation = domainOrIpSchema.safeParse({ input: target });
+    if (!validation.success) {
+      console.error("Validation error:", validation.error);
+      return { error: validation.error.issues[0].message };
+    }
     console.log(`Input '${target}' is an IP address.`);
     ipAddress = target;
   } else {
+    // If it's not an IP, we treat it as a domain and validate.
+    const validation = domainOrIpSchema.safeParse({ input: target });
+    if (!validation.success) {
+      console.error("Validation error:", validation.error);
+      return { error: validation.error.issues[0].message };
+    }
     // If it's not an IP, we treat it as a domain.
     console.log(`Input '${target}' is a domain. Resolving...`);
     try {
