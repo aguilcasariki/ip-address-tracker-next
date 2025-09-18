@@ -22,7 +22,8 @@ IP ADDRESS TRACKER
 
 ### Screenshot
 
-![App Screenshot](./images/appScreenshot.png)
+![App Screenshot](./images/desktopS.png)
+![App Screenshot](./images/mobileS.jpg)
 
 ### Built with
 
@@ -32,8 +33,6 @@ IP ADDRESS TRACKER
 - Mobile-first workflow
 - Next.js(https://nextjs.org/)
 - TailwindCSS(https://tailwindcss.com/)
-- MongoDB(https://www.mongodb.com/)
-- Mongoose(https://mongoosejs.com)
 - React Leaflet(https://react-leaflet.js.org/)
 - Google Fonts(https://fonts.google.com/)
 - Favicon.io(https://favicon.io/)
